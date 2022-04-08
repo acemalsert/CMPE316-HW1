@@ -5,13 +5,13 @@ using UnityEngine;
 public class PlayerScript : MonoBehaviour
 {
     
-    Rigidbody rigidBody;
-    float jump;
-    bool isInTheGround;
-    float InitialTime;
+    public Rigidbody rigidBody;
+    public bool isInTheGround = true;
+    public float InitialTime;
     // Start is called before the first frame update
     void Start()
     {
+  
         rigidBody = GetComponent<Rigidbody>();
 
     }
@@ -19,16 +19,16 @@ public class PlayerScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown("Space") && isInTheGround)
+        if (Input.GetKeyDown(KeyCode.Space) && isInTheGround)
         {
-            rigidBody.AddForce(Vector3.up * jump, ForceMode.Impulse);
+            rigidBody.AddForce(new Vector3(0,5,0), ForceMode.Impulse);
             isInTheGround = false;
         }
     }
 
     private void OnCollisionEnter(Collision col)
     {
-        if (col.gameObject.CompareTag("Plane"))
+        if (col.gameObject.CompareTag("Ground"))
         {
             isInTheGround = true;
         }
